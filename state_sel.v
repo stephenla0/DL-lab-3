@@ -1,5 +1,5 @@
 module state_sel(
-    output reg [2:0] current_state
+    output reg [2:0] current_state,
     input [1:0] KEY,
     input [9] SW,
     input [1:0] SW,
