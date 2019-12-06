@@ -1,3 +1,3 @@
 module state_exe(
-    a
+    output[2:0] state_select,
 );
