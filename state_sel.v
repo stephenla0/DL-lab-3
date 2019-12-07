@@ -1,8 +1,7 @@
 module state_sel(
     output reg [2:0] current_state,
     input [1:0] KEY,
-    input [9] SW,
-    input [1:0] SW,
+    input [9:0] SW,
     inout [23:0] clock_led,
     output [7:0] HEX5,
     output [9:0] LEDR
@@ -16,8 +15,19 @@ reg [2:0] state_blinkr = 3'b001;
 reg [2:0] state_blinkertog = 3'b000;
 reg [2:0] next_state = 3'b000;
 reg reset_n = 0;
+reg enable=1;
 current_state=state_idle;
 
+always @ (posedge clock_led)
+begin
+    if (SW[9]==0)
+        enable<=1;
+    else if (SW[9]==1)
+        enable<=0;
+end
+
+while(enable==1)
+begin
 always @ (posedge clock_led)
 begin
     if (KEY[0]==0)
@@ -43,6 +53,12 @@ begin
         next_state<=state_hazard;
     else if (SW[1]==1)
         next_state<=state_blinkertog;
+end
+end
+
+while (enable==0)
+begin
+
 end
 
 state_exe U0 (clock_led, current_state, LEDR);
