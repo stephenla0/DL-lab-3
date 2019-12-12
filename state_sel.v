@@ -17,7 +17,7 @@ reg [2:0] next_state = 3'b000;
 reg reset_n = 0;
 reg enable=1;
 wire [2:0] memout;
-reg [9:0] count;
+reg [9:0] count=0;
 reg start=1;
 
 always @ (posedge clock_led)
@@ -34,6 +34,7 @@ begin
         if(start==1)
         begin
         current_state<=state_idle;
+        count<=0;
         start<=0;
         end
     end
