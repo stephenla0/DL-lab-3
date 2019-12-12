@@ -6,10 +6,10 @@ module top(
     inout clock_led,
     input ADC_CLK_10,
     output [2:0] current_state,
-    output [23:0] clock_source
+    output clock_source
 );
-assign clock_source[23:0]=ADC_CLK_10;
+assign clock_source=ADC_CLK_10;
 clock_divider U0 (clock_source, clock_led);
-state_sel U1 (current_state, KEY, SW, clock_led, HEX5 LEDR);
+state_sel U1 (current_state, KEY, SW, clock_led, HEX5, LEDR);
 
 endmodule
